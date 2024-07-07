@@ -9,7 +9,7 @@ from base64 import b64decode
 from quoters import Quote
 from html import escape
 from cloudscraper import create_scraper
-
+import asyncio
 from requests import get as rget
 from pytz import timezone
 from bs4 import BeautifulSoup
@@ -67,6 +67,9 @@ else:
 
 @new_thread
 async def stats(_, message):
+    sticker_message = await message.reply_sticker("CAACAgIAAxkBAAEYonplzwrczhVu3I6HqPBzro3L2JU6YAACvAUAAj-VzAoTSKpoG9FPRjQE")
+    await asyncio.sleep(2)
+    await sticker_message.delete()
     total, used, free, disk = disk_usage('/')
     memory = virtual_memory()
     currentTime = get_readable_time(time() - botStartTime)
@@ -74,33 +77,38 @@ async def stats(_, message):
     cpuUsage = cpu_percent(interval=0.5)
     quote = Quote.print().split('―', 1)[0].strip().replace("“", "").replace("”", "")
     limit_mapping = {
-        'Torrent'  : config_dict.get('TORRENT_LIMIT',  '∞'),
-        'Gdrive'   : config_dict.get('GDRIVE_LIMIT',   '∞'),
-        'Ytdlp'    : config_dict.get('YTDLP_LIMIT',    '∞'),
-        'Direct'   : config_dict.get('DIRECT_LIMIT',   '∞'),
-        'Leech'    : config_dict.get('LEECH_LIMIT',    '∞'),
-        'Clone'    : config_dict.get('CLONE_LIMIT',    '∞'),
-        'Mega'     : config_dict.get('MEGA_LIMIT',     '∞'),
-        'User task': config_dict.get('USER_MAX_TASKS', '∞')}
+        '🧲 Tᴏʀʀᴇɴᴛ'  : config_dict.get('TORRENT_LIMIT',  '∞'),
+        '🟢 Gᴅʀɪᴠᴇ'   : config_dict.get('GDRIVE_LIMIT',   '∞'),
+        '🔴 Yᴛᴅʟᴘ'    : config_dict.get('YTDLP_LIMIT',    '∞'),
+        '🔗 Dɪʀᴇᴄᴛ'   : config_dict.get('DIRECT_LIMIT',   '∞'),
+        '🚀 Lᴇᴇᴄʜ'    : config_dict.get('LEECH_LIMIT',    '∞'),
+        '⚡️ Cʟᴏɴᴇ'     : config_dict.get('CLONE_LIMIT',    '∞'),
+        'Ⓜ️ Mᴇɢᴀ'     : config_dict.get('MEGA_LIMIT',     '∞'),
+        '👤 Usᴇʀ ᴛᴀsᴋ': config_dict.get('USER_MAX_TASKS', '∞')}
     system_info = f'<b>{quote}</b>\n\n'\
-        f'<code>• Bot uptime :</code> {currentTime}\n'\
-        f'<code>• Sys uptime :</code> {osUptime}\n'\
-        f'<code>• CPU usage  :</code> {cpuUsage}%\n'\
-        f'<code>• RAM usage  :</code> {memory.percent}%\n'\
-        f'<code>• Disk usage :</code> {disk}%\n'\
-        f'<code>• Free space :</code> {get_readable_file_size(free)}\n'\
-        f'<code>• Total space:</code> {get_readable_file_size(total)}\n\n'
+        f'<b><a href="https://t.me/JetMirror">Pᴏᴡᴇʀᴇᴅ ʙʏ ᴊᴇᴛ-ᴍɪʀʀᴏʀ 🚀♥️</a></b>\n\n'\
+        f'<b>Sʏsᴛᴇᴍ sᴛᴀᴛs 🚀♥️</b>\n\n'\
+        f'🤖 Bᴏᴛ ᴜᴘᴛɪᴍᴇ : {currentTime}\n'\
+        f'🖥️ Sʏs ᴜᴘᴛɪᴍᴇ : {osUptime}\n'\
+        f'⚡️ Cᴘᴜ ᴜsᴀɢᴇ  : {cpuUsage}%\n'\
+        f'🧨 Rᴀᴍ ᴜsᴀɢᴇ  : {memory.percent}%\n'\
+        f'💿 Dɪsᴋ ᴜsᴀɢᴇ : {disk}%\n'\
+        f'🪫 Fʀᴇᴇ sᴘᴀᴄᴇ : {get_readable_file_size(free)}\n'\
+        f'💯 Tᴏᴛᴀʟ sᴘᴀᴄᴇ: {get_readable_file_size(total)}\n\n'\
             
-    limitations = f'<b>LIMITATIONS</b>\n\n'
+    limitations = f'<b>Lɪᴍɪᴛᴀᴛɪᴏɴs 🚀♥️</b>\n\n'
     
     for k, v in limit_mapping.items():
         if v == '':
             v = '∞'
-        elif k != 'User task':
+        elif k != '👤 Usᴇʀ ᴛᴀsᴋ':
             v = f'{v}GB/Link'
         else:
-            v = f'{v} Tasks/user'
-        limitations += f'<code>• {k:<11}:</code> {v}\n'
+            if v == 1:
+                v = f'{v} Task/user'
+            else:
+                v = f'{v} Tasks/user'
+        limitations += f' {k:<11}: {v}\n'
 
     stats = system_info + limitations
     reply_message = await sendMessage(message, stats, photo='Random')
@@ -109,6 +117,9 @@ async def stats(_, message):
 
 @new_thread
 async def start(client, message):
+    sticker_message = await message.reply_sticker("CAACAgIAAxkBAAEXyPRledQ6luKt1QABSPMPi2s4rgH3xMUAAmkdAALpI4hJ8xCGgSybQv8zBA")
+    await asyncio.sleep(2)
+    await sticker_message.delete()
     buttons = ButtonMaker()
     reply_markup = buttons.build_menu(2)
     if len(message.command) > 1 and message.command[1] == "private":
@@ -119,14 +130,14 @@ async def start(client, message):
         if DATABASE_URL:
             stored_token = await DbManager().get_user_token(userid)
             if stored_token is None:
-                return await sendMessage(message, '<b>This token is not for you!</b>\n\nPlease generate your own.')
+                return await sendMessage(message, '<b>Tʜɪs ᴛᴏᴋᴇɴ ɪs ɴᴏᴛ ғᴏʀ ʏᴏᴜ!!</b>\n\nKɪɴᴅʟʏ ɢᴇɴᴇʀᴀᴛᴇ ʏᴏᴜʀ ᴏᴡɴ.')
             if input_token != stored_token:
-                return await sendMessage(message, 'Invalid token.\n\nPlease generate a new one.')
+                return await sendMessage(message, '<b>Iɴᴠᴀʟɪᴅ ᴛᴏᴋᴇɴ!!</b>\n\nKɪɴᴅʟʏ ɢᴇɴᴇʀᴀᴛᴇ ʏᴏᴜʀ ᴏᴡɴ.')
         if userid not in user_data:
-            return await sendMessage(message, 'This token is not yours!\n\nKindly generate your own.')
+            return await sendMessage(message, '<b>Tʜɪs ᴛᴏᴋᴇɴ ɪs ɴᴏᴛ ғᴏʀ ʏᴏᴜ!!</b>\n\nKɪɴᴅʟʏ ɢᴇɴᴇʀᴀᴛᴇ ʏᴏᴜʀ ᴏᴡɴ.')
         data = user_data[userid]
         if 'token' not in data or data['token'] != input_token:
-            return await sendMessage(message, '<b>This token has already been used!</b>\n\nPlease get a new one.')
+            return await sendMessage(message, '<b>Tʜɪs ᴛᴏᴋᴇɴ ʜᴀs ᴀʟʀᴇᴀᴅʏ ʙᴇᴇɴ ᴜsᴇᴅ!!</b>\n\nKɪɴᴅʟʏ ɢᴇɴᴇʀᴀᴛᴇ ᴀ ɴᴇᴡ ᴏɴᴇ.')
         token = str(uuid4())
         token_time = time()
         data['token'] = token
@@ -134,19 +145,22 @@ async def start(client, message):
         user_data[userid].update(data)
         if DATABASE_URL:
             await DbManager().update_user_tdata(userid, token, token_time)
-        msg = 'Your token has been successfully generated!\n\n'
-        msg += f'It will be valid for {get_readable_time(int(config_dict["TOKEN_TIMEOUT"]), True)}'
+        msg = '<b>Yᴏᴜʀ ᴛᴏᴋᴇɴ ʜᴀs ʙᴇᴇɴ sᴜᴄᴄᴇssғᴜʟʟʏ ɢᴇɴᴇʀᴀᴛᴇᴅ!</b> 🚀♥️\n\n'
+        msg += f'Iᴛ ᴡɪʟʟ ʙᴇ ᴠᴀʟɪᴅ ғᴏʀ {get_readable_time(int(config_dict["TOKEN_TIMEOUT"]), True)}'
         return await sendMessage(message, msg)
     elif await CustomFilters.authorized(client, message):
         help_command = f"/{BotCommands.HelpCommand}"
         start_string = f'This bot can mirror all your links|files|torrents to Google Drive or any rclone cloud or to telegram.\n<b>Type {help_command} to get a list of available commands</b>'
         await sendMessage(message, start_string, photo='Random')
     else:
-        await sendMessage(message, 'You are not a authorized user!', photo='Random')
+        await sendMessage(message, 'Yᴏᴜ Aʀᴇ Nᴏᴛ ᴀ Aᴜᴛʜᴏʀɪᴢᴇᴅ Usᴇʀ!\nYᴏᴜ Cᴀɴ Usᴇ Mᴇ ᴀᴛ <a href="https://telegram.me/JetMirror">ᴊᴇᴛ-ᴍɪʀʀᴏʀ🚀♥️</a>', photo='Random')
     await DbManager().update_pm_users(message.from_user.id)
 
 
 async def restart(client, message):
+    sticker_message = await message.reply_sticker("CAACAgUAAxkBAAEXrSRlbwYlArKGw0lVGUGHquKMqbu3fQACLggAAmCIwVXm28BgWp1jmzME")
+    await asyncio.sleep(2)
+    await sticker_message.delete()
     restart_message = await sendMessage(message, 'Restarting...')
     if scheduler.running:
         scheduler.shutdown(wait=False)
@@ -214,7 +228,7 @@ async def AeonCallback(_, query):
             btn.ubutton('Web paste', f"https://spaceb.in/{resp['payload']['id']}")
             await query.edit_message_reply_markup(btn.build_menu(1))
         else:
-        	  LOGGER.error(f"Web paste failed : {str(err)}")
+            LOGGER.error(f"Web paste failed : {str(err)}")
     elif data[2] == "private":
         await query.answer(url=f"https://t.me/{bot_name}?start=private")
     else:
