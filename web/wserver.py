@@ -249,13 +249,13 @@ function s_validate() {
           src="https://graph.org/file/1a6ad157f55bc42b548df.png"
           alt="logo"
         />
-        <a href="https://t.me/krn_adhikari">
+        <a href="https://t.me/hrishikesh2861">
           <h2 class="name">Bittorrent Selection</h2>
         </a>
       </div>
       <div class="social">
-        <a href="https://www.github.com/weebzone/WZML"><i class="fab fa-github"></i></a>
-        <a href="https://t.me/krn_adhikari"><i class="fab fa-telegram"></i></a>
+        <a href="https://github.com/Hrishi2861/Aeon-Modified"><i class="fab fa-github"></i></a>
+        <a href="https://t.me/hrishikesh2861"><i class="fab fa-telegram"></i></a>
       </div>
     </header>
     <div id="sticks">
@@ -795,7 +795,7 @@ def set_priority(id_):
 
 @app.route('/')
 def homepage():
-    return "<h1>See WZML-X <a href='https://www.github.com/weebzone/WZML'>@GitHub</a> By <a href='https://github.com/weebzone'>Code With Weeb</a></h1>"
+    return "<h1>See WZML-X <a href='https://github.com/Hrishi2861/Aeon-Modified'>@GitHub</a> By <a href='https://github.com/Hrishi2861'>Code With Lord Puneet</a></h1>"
 
 
 @app.errorhandler(Exception)
