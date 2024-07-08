@@ -466,7 +466,7 @@ class MirrorLeechListener:
                 self.sameDir['total'] -= 1
         await self.message.reply_sticker("CAACAgUAAxkBAAEZdxRmJhSGaHTpbHXmny9aPbKz9gfqvQACOA0AAmtQOVRDTwRcAyjd3DQE")
         await asyncio.sleep(2)
-        msg = f'ʜᴇʏ, {self.tag}!\n'
+        msg = f'<blockquote>ʜᴇʏ, {self.tag}!\n</blockquote>'
         msg += 'ʏᴏᴜʀ ᴅᴏᴡɴʟᴏᴀᴅ ʜᴀs ʙᴇᴇɴ sᴛᴏᴘᴘᴇᴅ!\n\n'
         msg += f'<b>ʀᴇᴀsᴏɴ:</b> {escape(error)}\n'
         msg += f'<b>ᴇʟᴀᴘsᴇᴅ:</b> {get_readable_time(time() - self.message.date.timestamp())}'
@@ -509,7 +509,7 @@ class MirrorLeechListener:
             count = len(download_dict)
         await self.message.reply_sticker("CAACAgUAAxkBAAEZdwhmJhEtVHB_D4aTXr0aSehAiTmPMwACTQQAAgIW2FSpfUijSfRJzzQE")
         await asyncio.sleep(2)
-        msg = f'ʜᴇʏ, {self.tag}!\n'
+        msg = f'<blockquote>ʜᴇʏ, {self.tag}!\n</blockquote>'
         msg += 'ʏᴏᴜʀ ᴜᴘʟᴏᴀᴅ ʜᴀs ʙᴇᴇɴ sᴛᴏᴘᴘᴇᴅ!\n\n'
         msg += f'<b>ʀᴇᴀsᴏɴ:</b> {escape(error)}\n'
         msg += f'<b>ᴇʟᴀᴘsᴇᴅ:</b> {get_readable_time(time() - self.message.date.timestamp())}'
