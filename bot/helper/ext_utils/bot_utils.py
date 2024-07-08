@@ -216,10 +216,10 @@ def get_readable_message():
             msg += f"\n⌑ 💯 ᴅᴏɴᴇ: {download.processed_bytes()} of {download.size()}"
             msg += f"\n⌑ 🚀 sᴘᴇᴇᴅ: {download.speed()}"
             msg += f'\n⌑ ⏳ ᴇsᴛɪᴍᴀᴛᴇᴅ: {download.eta()}'
-            msg += f"\n⌑ 👤 ᴜsᴇʀ: {download.message.from_user.mention} \n⌑ 🔗 ᴜsᴇʀ ɪᴅ: <spoiler>{download.message.from_user.id}</spoiler>\n"
+            msg += f"\n⌑ 👤 ᴜsᴇʀ: {download.message.from_user.mention} \n⌑ 🔗 ᴜsᴇʀ ɪᴅ: <spoiler>{download.message.from_user.id}</spoiler>"
             if hasattr(download, 'seeders_num'):
                 try:
-                    msg += f"⌑ 🌱 sᴇᴇᴅᴇʀs: {download.seeders_num()} | 📥 ʟᴇᴇᴄʜᴇʀs: {download.leechers_num()}"
+                    msg += f"\n⌑ 🌱 sᴇᴇᴅᴇʀs: {download.seeders_num()} | 📥 ʟᴇᴇᴄʜᴇʀs: {download.leechers_num()}"
                 except:
                     pass
         elif download.status() == MirrorStatus.STATUS_SEEDING:
@@ -231,7 +231,7 @@ def get_readable_message():
         else:
             msg += f"\n⌑ 💽 sɪᴢᴇ: {download.size()}"
         msg += f"\n⌑ 💯 ᴇʟᴀᴘsᴇᴅ: {get_readable_time(time() - download.message.date.timestamp())}"
-        msg += f"\n<blockquote><b> ❌ ᴄᴀɴᴄᴇʟ ᴛᴀsᴋ: /stop_{download.gid()[:8]}</b></blockquote>\n\n"
+        msg += f"\n<blockquote><b> ❌⚠️: /stop_{download.gid()[:8]}</b></blockquote>\n\n"
     if len(msg) == 0:
         return None, None
     
