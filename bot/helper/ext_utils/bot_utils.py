@@ -216,7 +216,7 @@ def get_readable_message():
             msg += f"\n⌑ 💯 ᴅᴏɴᴇ: {download.processed_bytes()} of {download.size()}"
             msg += f"\n⌑ 🚀 sᴘᴇᴇᴅ: {download.speed()}"
             msg += f'\n⌑ ⏳ ᴇsᴛɪᴍᴀᴛᴇᴅ: {download.eta()}'
-            msg += f"\n⌑ 👤 ᴜsᴇʀ: {download.message.from_user.mention} \n⌑ 🔗 ᴜsᴇʀ ɪᴅ: <span>{download.message.from_user.id}</span>\n"
+            msg += f"\n⌑ 👤 ᴜsᴇʀ: {download.message.from_user.mention} \n⌑ 🔗 ᴜsᴇʀ ɪᴅ: <spoiler>{download.message.from_user.id}</spoiler>\n"
             if hasattr(download, 'seeders_num'):
                 try:
                     msg += f"⌑ 🌱 sᴇᴇᴅᴇʀs: {download.seeders_num()} | 📥 ʟᴇᴇᴄʜᴇʀs: {download.leechers_num()}"
