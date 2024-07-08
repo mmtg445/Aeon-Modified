@@ -343,7 +343,7 @@ class MirrorLeechListener:
         user_id = self.message.from_user.id
         name, _ = await process_file(name, user_id, isMirror=not self.isLeech)
         user_dict = user_data.get(user_id, {})
-        msg = f'<pre><code><b>⌑ ғɪʟᴇɴᴀᴍᴇ: {escape(name)}</b></code></pre>\n\n'
+        msg = f'<pre><code><b>{escape(name)}</b></code></pre>\n\n'
         msg += f'<blockquote><b>⌑ sɪᴢᴇ: </b>{get_readable_file_size(size)}\n'
         msg += f'<b>⌑ ᴇʟᴀᴘsᴇᴅ: </b>{get_readable_time(time() - self.message.date.timestamp())}\n'
         LOGGER.info(f'Task Done: {name}')
@@ -466,10 +466,10 @@ class MirrorLeechListener:
                 self.sameDir['total'] -= 1
         await self.message.reply_sticker("CAACAgUAAxkBAAEZdxRmJhSGaHTpbHXmny9aPbKz9gfqvQACOA0AAmtQOVRDTwRcAyjd3DQE")
         await asyncio.sleep(2)
-        msg = f'<blockquote>ʜᴇʏ, {self.tag}!\n</blockquote>'
-        msg += 'ʏᴏᴜʀ ᴅᴏᴡɴʟᴏᴀᴅ ʜᴀs ʙᴇᴇɴ sᴛᴏᴘᴘᴇᴅ!\n\n'
+        msg = f'<pre><code><b>ʜᴇʏ, {self.tag}!\n</b></code></pre>'
+        msg += '<blockquote>ʏᴏᴜʀ ᴅᴏᴡɴʟᴏᴀᴅ ʜᴀs ʙᴇᴇɴ sᴛᴏᴘᴘᴇᴅ!\n\n'
         msg += f'<b>ʀᴇᴀsᴏɴ:</b> {escape(error)}\n'
-        msg += f'<b>ᴇʟᴀᴘsᴇᴅ:</b> {get_readable_time(time() - self.message.date.timestamp())}'
+        msg += f'<b>ᴇʟᴀᴘsᴇᴅ:</b> {get_readable_time(time() - self.message.date.timestamp())}</blockquote>'
         x = await sendMessage(self.message, msg, button)
         await delete_links(self.message)
         if self.botpmmsg:
@@ -509,10 +509,10 @@ class MirrorLeechListener:
             count = len(download_dict)
         await self.message.reply_sticker("CAACAgUAAxkBAAEZdwhmJhEtVHB_D4aTXr0aSehAiTmPMwACTQQAAgIW2FSpfUijSfRJzzQE")
         await asyncio.sleep(2)
-        msg = f'<blockquote>ʜᴇʏ, {self.tag}!\n</blockquote>'
-        msg += 'ʏᴏᴜʀ ᴜᴘʟᴏᴀᴅ ʜᴀs ʙᴇᴇɴ sᴛᴏᴘᴘᴇᴅ!\n\n'
+        msg = f'<pre><code><b>ʜᴇʏ, {self.tag}!\n</b></code></pre>'
+        msg += '<blockquote>ʏᴏᴜʀ ᴜᴘʟᴏᴀᴅ ʜᴀs ʙᴇᴇɴ sᴛᴏᴘᴘᴇᴅ!\n\n'
         msg += f'<b>ʀᴇᴀsᴏɴ:</b> {escape(error)}\n'
-        msg += f'<b>ᴇʟᴀᴘsᴇᴅ:</b> {get_readable_time(time() - self.message.date.timestamp())}'
+        msg += f'<b>ᴇʟᴀᴘsᴇᴅ:</b> {get_readable_time(time() - self.message.date.timestamp())}</blockquote>'
         x = await sendMessage(self.message, msg)
         if self.linkslogmsg:
             await deleteMessage(self.linkslogmsg)

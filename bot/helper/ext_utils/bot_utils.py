@@ -213,25 +213,25 @@ def get_readable_message():
         msg += f"<b>\n⌑ ғɪʟᴇɴᴀᴍᴇ</b> » <i>{escape(f'{download.name()}')}</i>\n"
         if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
             msg += f"\n⌑ {progress_bar(download.progress())} » {download.progress()}"
-            msg += f"\n⌑ ᴅᴏɴᴇ: {download.processed_bytes()} of {download.size()}"
-            msg += f"\n⌑ sᴘᴇᴇᴅ: {download.speed()}"
-            msg += f'\n⌑ ᴇsᴛɪᴍᴀᴛᴇᴅ: {download.eta()}'
-            msg += f"\n⌑ ᴜsᴇʀ: {download.message.from_user.mention} \n⌑ ɪᴅ: <code>{download.message.from_user.id}</code>\n"
+            msg += f"\n⌑ 💯 ᴅᴏɴᴇ: {download.processed_bytes()} of {download.size()}"
+            msg += f"\n⌑ 🚀 sᴘᴇᴇᴅ: {download.speed()}"
+            msg += f'\n⌑ ⏳ ᴇsᴛɪᴍᴀᴛᴇᴅ: {download.eta()}'
+            msg += f"\n⌑ 👤 ᴜsᴇʀ: {download.message.from_user.mention} \n⌑ 🔗 ᴜsᴇʀ ɪᴅ: <code><span>{download.message.from_user.id}</span></code>\n"
             if hasattr(download, 'seeders_num'):
                 try:
-                    msg += f"⌑ sᴇᴇᴅᴇʀs: {download.seeders_num()} | ʟᴇᴇᴄʜᴇʀs: {download.leechers_num()}"
+                    msg += f"⌑ 🌱 sᴇᴇᴅᴇʀs: {download.seeders_num()} | 📥 ʟᴇᴇᴄʜᴇʀs: {download.leechers_num()}"
                 except:
                     pass
         elif download.status() == MirrorStatus.STATUS_SEEDING:
-            msg += f"\n⌑ sɪᴢᴇ: {download.size()}"
-            msg += f"\n⌑ sᴘᴇᴇᴅ: {download.upload_speed()}"
-            msg += f"\n⌑ ᴜᴘʟᴏᴀᴅᴇᴅ: {download.uploaded_bytes()}"
-            msg += f"\n⌑ ʀᴀᴛɪᴏ: {download.ratio()}"
-            msg += f"\n⌑ ᴛɪᴍᴇ: {download.seeding_time()}"
+            msg += f"\n⌑ 💽 sɪᴢᴇ: {download.size()}"
+            msg += f"\n⌑ 🚀 sᴘᴇᴇᴅ: {download.upload_speed()}"
+            msg += f"\n⌑ 📈 ᴜᴘʟᴏᴀᴅᴇᴅ: {download.uploaded_bytes()}"
+            msg += f"\n⌑ 📟 ʀᴀᴛɪᴏ: {download.ratio()}"
+            msg += f"\n⌑ ⏳ ᴛɪᴍᴇ: {download.seeding_time()}"
         else:
-            msg += f"\n⌑ sɪᴢᴇ: {download.size()}"
-        msg += f"\n⌑ ᴇʟᴀᴘsᴇᴅ: {get_readable_time(time() - download.message.date.timestamp())}"
-        msg += f"\n⌑ ᴄᴀɴᴄᴇʟ ᴛᴀsᴋ: /stop_{download.gid()[:8]}\n\n"
+            msg += f"\n⌑ 💽 sɪᴢᴇ: {download.size()}"
+        msg += f"\n⌑ 💯 ᴇʟᴀᴘsᴇᴅ: {get_readable_time(time() - download.message.date.timestamp())}"
+        msg += f"\n<blockquote><b> ❌ ᴄᴀɴᴄᴇʟ ᴛᴀsᴋ: /stop_{download.gid()[:8]}</b></blockquote>\n\n"
     if len(msg) == 0:
         return None, None
     
@@ -252,11 +252,11 @@ def get_readable_message():
         buttons.ibutton(f"ʀᴇғ 🔄 {PAGE_NO}/{PAGES}", "status ref")
         buttons.ibutton("⬅️ ɴᴇxᴛ", "status nex")
         button = buttons.build_menu(3)
-    msg += f"<b>⌑ Tᴀsᴋs</b>: {tasks}{bmax_task}"
-    msg += f"\n<b>⌑ ʙᴏᴛ ᴜᴘᴛɪᴍᴇ</b>: {currentTime}"
-    msg += f"\n<b>⌑ ғʀᴇᴇ ᴅɪsᴋ sᴘᴀᴄᴇ</b>: {get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)}"
-    msg += f"\n<b>⌑ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ sᴘᴇᴇᴅ</b>: {get_readable_file_size(dl_speed)}/s"
-    msg += f"\n<b>⌑ ᴜᴘʟᴏᴀᴅɪɴɢ sᴘᴇᴇᴅ</b>: {get_readable_file_size(up_speed)}/s"
+    msg += f"<b>⌑ ⚠️ Tᴀsᴋs</b>: {tasks}{bmax_task}"
+    msg += f"\n<b>⌑ ⏳ ʙᴏᴛ ᴜᴘᴛɪᴍᴇ</b>: {currentTime}"
+    msg += f"\n<b>⌑ 💽 ғʀᴇᴇ ᴅɪsᴋ sᴘᴀᴄᴇ</b>: {get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)}"
+    msg += f"\n<b>⌑ 📉 ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ sᴘᴇᴇᴅ</b>: {get_readable_file_size(dl_speed)}/s"
+    msg += f"\n<b>⌑ 📈 ᴜᴘʟᴏᴀᴅɪɴɢ sᴘᴇᴇᴅ</b>: {get_readable_file_size(up_speed)}/s"
     return msg, button
 
 
