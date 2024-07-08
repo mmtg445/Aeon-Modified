@@ -343,7 +343,7 @@ class MirrorLeechListener:
         user_id = self.message.from_user.id
         name, _ = await process_file(name, user_id, isMirror=not self.isLeech)
         user_dict = user_data.get(user_id, {})
-        msg = f'<blockquote><b>⌑ ғɪʟᴇɴᴀᴍᴇ: {escape(name)}</b></blockquote>\n\n'
+        msg = f'<pre><code><b>⌑ ғɪʟᴇɴᴀᴍᴇ: {escape(name)}</b></code></pre>\n\n'
         msg += f'<blockquote><b>⌑ sɪᴢᴇ: </b>{get_readable_file_size(size)}\n'
         msg += f'<b>⌑ ᴇʟᴀᴘsᴇᴅ: </b>{get_readable_time(time() - self.message.date.timestamp())}\n'
         LOGGER.info(f'Task Done: {name}')
@@ -357,7 +357,7 @@ class MirrorLeechListener:
             if mime_type != 0:
                 msg += f'<b>⌑ ᴄᴏʀʀᴜᴘᴛᴇᴅ ғɪʟᴇs: </b>{mime_type}\n'
             msg += f'<b>⌑ ᴜsᴇʀ ɪᴅ: </b><code>{self.message.from_user.id}</code>\n'
-            msg += f'<b>⌑ ᴜᴘʟᴏᴀᴅᴇᴅ ʙʏ: </b>{self.tag}\n\n</blockquote>'
+            msg += f'<b>⌑ ᴜᴘʟᴏᴀᴅᴇᴅ ʙʏ: </b>{self.tag}</blockquote>\n\n'
             if not files:
                 if self.isPrivate:
                     msg += '<b>ғɪʟᴇs ʜᴀᴠᴇ ɴᴏᴛ ʙᴇᴇɴ sᴇɴᴛ ғᴏʀ ᴀɴ ᴜɴsᴘᴇᴄɪғɪᴇᴅ ʀᴇᴀsᴏɴ.</b>'
