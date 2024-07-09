@@ -17,14 +17,13 @@ class QbittorrentStatus:
 
     def __init__(self, listener, seeding=False, queued=False):
         self.__listener = listener
-        self.__info = get_download(self.__client, f'{self.__listener.uid}')
+        self.__info = None
         self.queued = queued
         self.seeding = seeding
         self.message = listener.message
-        self.__client = xnox_client()
 
     def __update(self):
-        new_info = get_download(self.__client, f'{self.__listener.uid}')
+        new_info = get_download(f'{self.__listener.uid}')
         if new_info is not None:
             self.__info = new_info
 
@@ -92,16 +91,13 @@ class QbittorrentStatus:
     def hash(self):
         self.__update()
         return self.__info.hash
-    
-    def client(self):
-        return self.__client
 
     def listener(self):
         return self.__listener
 
     async def cancel_download(self):
         self.__update()
-        await sync_to_async(self.__client.torrents_pause, torrent_hashes=self.__info.hash)
+        await sync_to_async(xnox_client.torrents_pause, torrent_hashes=self.__info.hash)
         if not self.seeding:
             if self.queued:
                 LOGGER.info(f'Cancelling QueueDL: {self.name()}')
@@ -110,7 +106,7 @@ class QbittorrentStatus:
                 LOGGER.info(f"Cancelling Download: {self.__info.name}")
                 msg = 'Download stopped by user!'
             await sleep(0.3)
-            await sync_to_async(self.__client.torrents_delete, torrent_hashes=self.__info.hash, delete_files=True)
+            await sync_to_async(xnox_client.torrents_delete, torrent_hashes=self.__info.hash, delete_files=True)
             async with qb_listener_lock:
                 if self.__info.tags in QbTorrents:
                     del QbTorrents[self.__info.tags]
