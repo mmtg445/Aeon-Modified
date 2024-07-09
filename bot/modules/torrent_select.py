@@ -30,6 +30,10 @@ async def get_confirm(client, query):
         await query.answer()
         id_ = data[3]
         if len(id_) > 20:
+            if not hasattr(dl, 'client'):
+                await query.answer("Download object does not have 'client' attribute!", show_alert=True)
+                LOGGER.error(f"Download object type: {type(dl)} does not have 'client' attribute.")
+                return
             client = dl.client()
             tor_info = (await sync_to_async(client.torrents_info, torrent_hash=id_))[0]
             path = tor_info.content_path.rsplit('/', 1)[0]
@@ -64,6 +68,7 @@ async def get_confirm(client, query):
         await query.answer()
         await (dl.download()).cancel_download()
         await message.delete()
+
 
 
 bot.add_handler(CallbackQueryHandler(get_confirm, filters=regex("^btsel")))
