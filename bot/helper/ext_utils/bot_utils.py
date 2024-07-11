@@ -150,7 +150,7 @@ def bt_selection_buttons(id_):
     pincode = ''.join([n for n in id_ if n.isdigit()][:4])
     buttons = ButtonMaker()
     BASE_URL = config_dict['BASE_URL']
-    buttons.ubutton("sᴇʟᴇᴄᴛ ғɪʟᴇs 🗳️", f"{BASE_URL}/app/files/{id_}?pin_code={pincode}"")
+    buttons.ubutton("sᴇʟᴇᴄᴛ ғɪʟᴇs 🗳️", f"{BASE_URL}/app/files/{id_}?pin_code={pincode}")
     #buttons.ibutton("Pincode", f"btsel pin {gid} {pincode}")
     buttons.ibutton("ᴄᴀɴᴄᴇʟ ❌", f"btsel rm {gid} {id_}")
     buttons.ibutton("ᴅᴏɴᴇ sᴇʟᴇᴄᴛɪɴɢ ✅", f"btsel done {gid} {id_}")
