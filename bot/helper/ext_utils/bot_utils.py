@@ -200,6 +200,8 @@ def get_readable_message():
     msg = '<b><a href="https://t.me/jetmirror">ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴊᴇᴛ-ᴍɪʀʀᴏʀ ❤️🚀</a></b>\n\n'
     button = None
     tasks = len(download_dict)
+    msg_link = download.message.link if download.message.chat.type in [
+            ChatType.SUPERGROUP, ChatType.CHANNEL] and not config_dict['DELETE_LINKS'] else ''
     currentTime = get_readable_time(time() - botStartTime)
     if config_dict['BOT_MAX_TASKS']:
         bmax_task = f"/{config_dict['BOT_MAX_TASKS']}"
@@ -210,7 +212,7 @@ def get_readable_message():
         globals()['STATUS_START'] = STATUS_LIMIT * (PAGES - 1)
         globals()['PAGE_NO'] = PAGES
     for download in list(download_dict.values())[STATUS_START:STATUS_LIMIT+STATUS_START]:
-        msg += f"<b>{download.status()}:</b>\n"
+        msg += f"<b><a href={msg_link}>{download.status()}</a>:</b>\n"
         msg += f"<b>\n⌑ ғɪʟᴇɴᴀᴍᴇ</b> » <i>{escape(f'{download.name()}')}</i>\n"
         if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
             msg += f"\n⌑ {progress_bar(download.progress())} » {download.progress()}"
