@@ -200,8 +200,7 @@ def get_readable_message():
     msg = '<b><a href="https://t.me/jetmirror">ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴊᴇᴛ-ᴍɪʀʀᴏʀ ❤️🚀</a></b>\n\n'
     button = None
     tasks = len(download_dict)
-    msg_link = download.message.link if download.message.chat.type in [
-            ChatType.SUPERGROUP, ChatType.CHANNEL] and not config_dict['DELETE_LINKS'] else ''
+    msg_link = download.message.link
     currentTime = get_readable_time(time() - botStartTime)
     if config_dict['BOT_MAX_TASKS']:
         bmax_task = f"/{config_dict['BOT_MAX_TASKS']}"
