@@ -201,7 +201,15 @@ async def start(client, message):
         buttons=ButtonMaker
         buttons.url("Owner ☀️", "https://t.me/hrishikesh2861", position="header")
         buttons.url("Repo 🌐", "https://github.com/Hrishi2861/Z-Mirror-Modified", position="footer")
-        await send_message(message, "You are not a authorized user!\nUse me at: @JetMirror ❤🚀", photo="Random", buttons=buttons.column(1))
+        reply_markup=buttons.column(2)
+        strt = "You are not a authorized user!\nUse me at: @JetMirror ❤🚀"
+        await client.send_photo(
+        chat_id=message.chat.id,
+        photo="/usr/src/app/Jet.jpg",
+        caption=strt,
+        reply_markup=reply_markup
+    )
+        # await send_message(message, "You are not a authorized user!\nUse me at: @JetMirror ❤🚀", photo="Random", buttons=buttons.column(1))
     await DbManager().update_pm_users(message.from_user.id)
     return None
 
