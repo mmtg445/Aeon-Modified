@@ -269,9 +269,9 @@ def get_readable_message():
         # msg += f"<b>{download.status()}:</b> {escape(f'{download.name()}')}\n"
         # msg += f"by {source(download)}\n"
         if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING, MirrorStatus.STATUS_PROCESSING]:
-            msg += f"\n<blockquote>#JetMirror ❤🚀...(Processing)</blockquote>\n"
+            msg += f"\n<blockquote>#FileName: {download.name()}</blockquote>\n"
             msg += f"<b>{download.status()}:</b>"
-            msg += f"<b>\n⌑ ғɪʟᴇɴᴀᴍᴇ</b> » <i>{escape(f'{download.name()}')}</i>\n"
+            # msg += f"<b>\n⌑ ғɪʟᴇɴᴀᴍᴇ</b> » <i>{escape(f'{download.name()}')}</i>\n"
             msg += f"\n⌑ 🚀 ᴘʀᴏᴄᴇssᴇᴅ: {progress_bar(download.progress())} » {download.progress()}"
             msg += f"\n⌑ 💯 ᴅᴏɴᴇ: {download.processed_bytes()} of {download.size()}"
             msg += f"\n⌑ 🚀 sᴘᴇᴇᴅ: {download.speed()}"
