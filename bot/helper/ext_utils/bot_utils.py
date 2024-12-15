@@ -266,36 +266,34 @@ def get_readable_message():
     for download in list(download_dict.values())[
         STATUS_START : STATUS_LIMIT + STATUS_START
     ]:
-        msg += f"<b>{download.status()}:</b> {escape(f'{download.name()}')}\n"
-        msg += f"by {source(download)}\n"
+        # msg += f"<b>{download.status()}:</b> {escape(f'{download.name()}')}\n"
+        # msg += f"by {source(download)}\n"
         if download.status() not in [
             MirrorStatus.STATUS_SPLITTING,
             MirrorStatus.STATUS_SEEDING,
             MirrorStatus.STATUS_PROCESSING,
         ]:
-            msg += f"<b>{download.status()}:</b>\n"
+            f"\n<blockquote>#JetMirror ❤🚀...(Processing)</blockquote>\n"
+            msg += f"<b>{download.status()}:</b>"
             msg += f"<b>\n⌑ ғɪʟᴇɴᴀᴍᴇ</b> » <i>{escape(f'{download.name()}')}</i>\n"
-            if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
-                msg += f"\n⌑ {progress_bar(download.progress())} » {download.progress()}"
-                msg += f"\n⌑ 💯 ᴅᴏɴᴇ: {download.processed_bytes()} of {download.size()}"
-                msg += f"\n⌑ 🚀 sᴘᴇᴇᴅ: {download.speed()}"
-                msg += f'\n⌑ ⏳ ᴇsᴛɪᴍᴀᴛᴇᴅ: {download.eta()}'
-                msg += f"\n⌑ 👤 ᴜsᴇʀ: {download.message.from_user.mention} \n⌑ 🔗 ᴜsᴇʀ ɪᴅ: <spoiler>{download.message.from_user.id}</spoiler>"
-                if hasattr(download, 'seeders_num'):
-                    try:
-                        msg += f"\n⌑ 🌱 sᴇᴇᴅᴇʀs: {download.seeders_num()} | 📥 ʟᴇᴇᴄʜᴇʀs: {download.leechers_num()}"
-                    except:
-                        pass
-            elif download.status() == MirrorStatus.STATUS_SEEDING:
-                msg += f"\n⌑ 💽 sɪᴢᴇ: {download.size()}"
-                msg += f"\n⌑ 🚀 sᴘᴇᴇᴅ: {download.upload_speed()}"
-                msg += f"\n⌑ 📈 ᴜᴘʟᴏᴀᴅᴇᴅ: {download.uploaded_bytes()}"
-                msg += f"\n⌑ 📟 ʀᴀᴛɪᴏ: {download.ratio()}"
-                msg += f"\n⌑ ⏳ ᴛɪᴍᴇ: {download.seeding_time()}"
-            else:
-                msg += f"\n⌑ 💽 sɪᴢᴇ: {download.size()}"
-                msg += f"\n⌑ 💯 ᴇʟᴀᴘsᴇᴅ: {get_readable_time(time() - download.message.date.timestamp())}"
-                msg += f"\n<blockquote><b> ❌⚠️: /stop_{download.gid()[:8]}</b></blockquote>\n\n"
+            msg += f"\n⌑ 🚀 ᴘʀᴏᴄᴇssᴇᴅ: {progress_bar(download.progress())} » {download.progress()}"
+            msg += f"\n⌑ 💯 ᴅᴏɴᴇ: {download.processed_bytes()} of {download.size()}"
+            msg += f"\n⌑ 🚀 sᴘᴇᴇᴅ: {download.speed()}"
+            msg += f'\n⌑ ⏳ ᴇsᴛɪᴍᴀᴛᴇᴅ: {download.eta()}'
+            msg += f"\n⌑ 👤 ᴜsᴇʀ: {download.message.from_user.mention} \n⌑ 🔗 ᴜsᴇʀ ɪᴅ: <spoiler>{download.message.from_user.id}</spoiler>"
+            if hasattr(download, 'seeders_num'):
+                with contextlib.suppress(Exception):
+                    msg += f"\n⌑ 🌱 sᴇᴇᴅᴇʀs: {download.seeders_num()} | 📥 ʟᴇᴇᴄʜᴇʀs: {download.leechers_num()}"
+        elif download.status() == MirrorStatus.STATUS_SEEDING:
+            msg += f"\n⌑ 💽 sɪᴢᴇ: {download.size()}"
+            msg += f"\n⌑ 🚀 sᴘᴇᴇᴅ: {download.upload_speed()}"
+            msg += f"\n⌑ 📈 ᴜᴘʟᴏᴀᴅᴇᴅ: {download.uploaded_bytes()}"
+            msg += f"\n⌑ 📟 ʀᴀᴛɪᴏ: {download.ratio()}"
+            msg += f"\n⌑ ⏳ ᴛɪᴍᴇ: {download.seeding_time()}"
+        else:
+                # msg += f"\n⌑ 💽 sɪᴢᴇ: {download.size()}"
+            msg += f"\n⌑ 💯 ᴇʟᴀᴘsᴇᴅ: {get_readable_time(time() - download.message.date.timestamp())}"
+            msg += f"\n<blockquote><b> ❌⚠️: /stop_{download.gid()[:8]}</b></blockquote>\n\n"
     if len(msg) == 0:
         return None, None
     if tasks > STATUS_LIMIT:
