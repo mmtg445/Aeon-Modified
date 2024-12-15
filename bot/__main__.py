@@ -198,7 +198,10 @@ async def start(client, message):
         start_string = f"This bot can mirror all your links|files|torrents to Google Drive or any rclone cloud or to telegram.\n<b>Type {help_command} to get a list of available commands</b>"
         await send_message(message, start_string, photo="Random")
     else:
-        await send_message(message, "You are not a authorized user!", photo="Random")
+        buttons=ButtonMaker
+        buttons.url("Owner ☀️", "https://t.me/hrishikesh2861", position="header")
+        buttons.url("Repo 🌐", "https://github.com/Hrishi2861/Z-Mirror-Modified", position="footer")
+        await send_message(message, "You are not a authorized user!\nUse me at: @JetMirror ❤🚀", photo="Random", buttons=buttons.column(1))
     await DbManager().update_pm_users(message.from_user.id)
     return None
 
