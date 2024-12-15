@@ -202,7 +202,7 @@ async def start(client, message):
         buttons.url("Owner ☀️", "https://t.me/hrishikesh2861", position="header")
         buttons.url("Repo 🌐", "https://github.com/Hrishi2861/Z-Mirror-Modified", position="footer")
         reply_markup=buttons.column(2)
-        await send_message(message, "You are not a authorized user!\nUse me at: @JetMirror ❤🚀", photo="Random", buttons=reply_markup)
+        await send_message(message, "You are not a authorized user!\nUse me at: @JetMirror ❤🚀", photo="Random")
     await DbManager().update_pm_users(message.from_user.id)
     return None
 
