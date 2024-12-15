@@ -3,7 +3,7 @@ from os import walk
 from html import escape
 from time import time
 from asyncio import Event, sleep, create_subprocess_exec
-
+import asyncio
 from requests import utils as rutils
 from aioshutil import move
 from aiofiles.os import path as aiopath
@@ -464,6 +464,8 @@ class MirrorLeechListener:
     async def onUploadComplete(
         self, link, size, files, folders, mime_type, name, rclonePath=""
     ):
+        await self.message.reply_sticker("CAACAgIAAxkBAAEcVCtnXt9Dvi16SLqhI6a8n4uW-jeGsQACjzMAAumt-UlYSD7bJ5sg1DYE")
+        await asyncio.sleep(2)
         user_id = self.message.from_user.id
         name, _ = await process_file(name, user_id, is_mirror=not self.is_leech)
         msg = f"{escape(name)}\n\n"
@@ -472,7 +474,7 @@ class MirrorLeechListener:
         LOGGER.info(f"Task Done: {name}")
         buttons = ButtonMaker()
         inboxButton = ButtonMaker()
-        inboxButton.callback("View in inbox", f"aeon {user_id} private", "header")
+        inboxButton.callback("Vɪᴇᴡ ɪɴ ɪɴʙᴏx 💯", f"aeon {user_id} private", "header")
         inboxButton = extra_btns(inboxButton)
         if self.is_leech:
             if folders > 1:
@@ -490,7 +492,7 @@ class MirrorLeechListener:
             else:
                 attachmsg = True
                 fmsg, totalmsg = "\n\n", ""
-                lmsg = "<b>Files have been sent. Access them via the provided links.</b>"
+                lmsg = "<b>ғɪʟᴇs ʜᴀᴠᴇ ʙᴇᴇɴ sᴇɴᴛ. ᴀᴄᴄᴇss ᴛʜᴇᴍ ᴠɪᴀ ᴛʜᴇ ᴘʀᴏᴠɪᴅᴇᴅ ʟɪɴᴋs.</b>"
                 for index, (dlink, name) in enumerate(files.items(), start=1):
                     fmsg += f"{index}. <a href='{dlink}'>{name}</a>\n"
                     totalmsg = (msg + lmsg + fmsg) if attachmsg else fmsg
