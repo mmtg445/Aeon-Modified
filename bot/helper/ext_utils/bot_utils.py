@@ -268,11 +268,7 @@ def get_readable_message():
     ]:
         # msg += f"<b>{download.status()}:</b> {escape(f'{download.name()}')}\n"
         # msg += f"by {source(download)}\n"
-        if download.status() not in [
-            MirrorStatus.STATUS_SPLITTING,
-            MirrorStatus.STATUS_SEEDING,
-            MirrorStatus.STATUS_PROCESSING,
-        ]:
+        if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING, MirrorStatus.STATUS_PROCESSING]:
             msg += f"\n<blockquote>#JetMirror ❤🚀...(Processing)</blockquote>\n"
             msg += f"<b>{download.status()}:</b>"
             msg += f"<b>\n⌑ ғɪʟᴇɴᴀᴍᴇ</b> » <i>{escape(f'{download.name()}')}</i>\n"
@@ -291,9 +287,9 @@ def get_readable_message():
             msg += f"\n⌑ 📟 ʀᴀᴛɪᴏ: {download.ratio()}"
             msg += f"\n⌑ ⏳ ᴛɪᴍᴇ: {download.seeding_time()}"
         else:
-                # msg += f"\n⌑ 💽 sɪᴢᴇ: {download.size()}"
-            msg += f"\n⌑ 💯 ᴇʟᴀᴘsᴇᴅ: {get_readable_time(time() - download.message.date.timestamp())}"
-            msg += f"\n<blockquote><b> ❌⚠️: /stop_{download.gid()[:8]}</b></blockquote>\n\n"
+            msg += f"\n⌑ 💽 sɪᴢᴇ: {download.size()}"
+        msg += f"\n⌑ 💯 ᴇʟᴀᴘsᴇᴅ: {get_readable_time(time() - download.message.date.timestamp())}"
+        msg += f"\n<blockquote><b> ❌⚠️: /stop_{download.gid()[:8]}</b></blockquote>\n\n"
     if len(msg) == 0:
         return None, None
     if tasks > STATUS_LIMIT:
