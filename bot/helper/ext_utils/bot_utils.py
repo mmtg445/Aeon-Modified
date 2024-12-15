@@ -273,7 +273,7 @@ def get_readable_message():
             MirrorStatus.STATUS_SEEDING,
             MirrorStatus.STATUS_PROCESSING,
         ]:
-            f"\n<blockquote>#JetMirror ❤🚀...(Processing)</blockquote>\n"
+            msg += f"\n<blockquote>#JetMirror ❤🚀...(Processing)</blockquote>\n"
             msg += f"<b>{download.status()}:</b>"
             msg += f"<b>\n⌑ ғɪʟᴇɴᴀᴍᴇ</b> » <i>{escape(f'{download.name()}')}</i>\n"
             msg += f"\n⌑ 🚀 ᴘʀᴏᴄᴇssᴇᴅ: {progress_bar(download.progress())} » {download.progress()}"
