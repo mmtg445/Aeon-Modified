@@ -1,9 +1,10 @@
+import asyncio
 from os import path as ospath
 from os import walk
 from html import escape
 from time import time
 from asyncio import Event, sleep, create_subprocess_exec
-import asyncio
+
 from requests import utils as rutils
 from aioshutil import move
 from aiofiles.os import path as aiopath
@@ -150,10 +151,8 @@ class MirrorLeechListener:
         multi_links = False
         while True:
             if self.same_dir:
-                if (
-                    self.same_dir["total"] in [1, 0]
-                    or self.same_dir["total"] > 1
-                    and len(self.same_dir["tasks"]) > 1
+                if self.same_dir["total"] in [1, 0] or (
+                    self.same_dir["total"] > 1 and len(self.same_dir["tasks"]) > 1
                 ):
                     break
             else:
@@ -228,10 +227,8 @@ class MirrorLeechListener:
                         walk, dl_path, topdown=False
                     ):
                         for file_ in files:
-                            if (
-                                is_first_archive_split(file_)
-                                or is_archive(file_)
-                                and not file_.endswith(".rar")
+                            if is_first_archive_split(file_) or (
+                                is_archive(file_) and not file_.endswith(".rar")
                             ):
                                 f_path = ospath.join(dirpath, file_)
                                 t_path = (
@@ -250,9 +247,8 @@ class MirrorLeechListener:
                                 ]
                                 if not pswd:
                                     del cmd[2]
-                                if (
-                                    self.suproc == "cancelled"
-                                    or self.suproc is not None
+                                if self.suproc == "cancelled" or (
+                                    self.suproc is not None
                                     and self.suproc.returncode == -9
                                 ):
                                     return
@@ -464,7 +460,9 @@ class MirrorLeechListener:
     async def onUploadComplete(
         self, link, size, files, folders, mime_type, name, rclonePath=""
     ):
-        await self.message.reply_sticker("CAACAgIAAxkBAAEcVCtnXt9Dvi16SLqhI6a8n4uW-jeGsQACjzMAAumt-UlYSD7bJ5sg1DYE")
+        await self.message.reply_sticker(
+            "CAACAgIAAxkBAAEcVCtnXt9Dvi16SLqhI6a8n4uW-jeGsQACjzMAAumt-UlYSD7bJ5sg1DYE"
+        )
         await asyncio.sleep(2)
         user_id = self.message.from_user.id
         name, _ = await process_file(name, user_id, is_mirror=not self.is_leech)

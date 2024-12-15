@@ -1,4 +1,5 @@
 # ruff: noqa: F401
+import asyncio
 import contextlib
 from os import execl as osexecl
 from sys import executable
@@ -27,7 +28,7 @@ from bot import (
     config_dict,
     bot_start_time,
 )
-import asyncio
+
 from .modules import (
     list,
     clone,
@@ -111,40 +112,39 @@ async def stats(_, message):
     os_uptime = get_readable_time(time() - boot_time())
     cpu_usage = cpu_percent(interval=0.5)
     limit_mapping = {
-        '🧲 Tᴏʀʀᴇɴᴛ'  : config_dict.get('TORRENT_LIMIT',  '∞'),
-        '🟢 Gᴅʀɪᴠᴇ'   : config_dict.get('GDRIVE_LIMIT',   '∞'),
-        '🔴 Yᴛᴅʟᴘ'    : config_dict.get('YTDLP_LIMIT',    '∞'),
-        '🔗 Dɪʀᴇᴄᴛ'   : config_dict.get('DIRECT_LIMIT',   '∞'),
-        '🚀 Lᴇᴇᴄʜ'    : config_dict.get('LEECH_LIMIT',    '∞'),
-        '⚡️ Cʟᴏɴᴇ'    : config_dict.get('CLONE_LIMIT',    '∞'),
-        'Ⓜ️ Mᴇɢᴀ'     : config_dict.get('MEGA_LIMIT',     '∞'),
-        '👤 Usᴇʀ ᴛᴀsᴋ': config_dict.get('USER_MAX_TASKS', '∞')
+        "🧲 Tᴏʀʀᴇɴᴛ": config_dict.get("TORRENT_LIMIT", "∞"),
+        "🟢 Gᴅʀɪᴠᴇ": config_dict.get("GDRIVE_LIMIT", "∞"),
+        "🔴 Yᴛᴅʟᴘ": config_dict.get("YTDLP_LIMIT", "∞"),
+        "🔗 Dɪʀᴇᴄᴛ": config_dict.get("DIRECT_LIMIT", "∞"),
+        "🚀 Lᴇᴇᴄʜ": config_dict.get("LEECH_LIMIT", "∞"),
+        "⚡️ Cʟᴏɴᴇ": config_dict.get("CLONE_LIMIT", "∞"),
+        "Ⓜ️ Mᴇɢᴀ": config_dict.get("MEGA_LIMIT", "∞"),
+        "👤 Usᴇʀ ᴛᴀsᴋ": config_dict.get("USER_MAX_TASKS", "∞"),
     }
     system_info = (
-        f'<b><a href="https://t.me/RM_Movies_Update">Pᴏᴡᴇʀᴇᴅ ʙʏ -𝚁𝙼 𝙼𝚘𝚟𝚒𝚎 𝙵𝚕𝚒𝚡 🚀♥️</a></b>\n\n'\
-        f'<b>Sʏsᴛᴇᴍ sᴛᴀᴛs 🚀♥️</b>\n\n'\
-        f'🤖 Bᴏᴛ ᴜᴘᴛɪᴍᴇ : {current_time}\n'\
-        f'🖥️ Sʏs ᴜᴘᴛɪᴍᴇ : {os_uptime}\n'\
-        f'⚡️ Cᴘᴜ ᴜsᴀɢᴇ  : {cpu_usage}%\n'\
-        f'🧨 Rᴀᴍ ᴜsᴀɢᴇ  : {memory.percent}%\n'\
-        f'💿 Dɪsᴋ ᴜsᴀɢᴇ : {disk}%\n'\
-        f'🪫 Fʀᴇᴇ sᴘᴀᴄᴇ : {get_readable_file_size(free)}\n'\
-        f'💯 Tᴏᴛᴀʟ sᴘᴀᴄᴇ: {get_readable_file_size(total)}\n\n'\
+        f'<b><a href="https://t.me/RM_Movies_Update">Pᴏᴡᴇʀᴇᴅ ʙʏ -𝚁𝙼 𝙼𝚘𝚟𝚒𝚎 𝙵𝚕𝚒𝚡 🚀♥️</a></b>\n\n'
+        f"<b>Sʏsᴛᴇᴍ sᴛᴀᴛs 🚀♥️</b>\n\n"
+        f"🤖 Bᴏᴛ ᴜᴘᴛɪᴍᴇ : {current_time}\n"
+        f"🖥️ Sʏs ᴜᴘᴛɪᴍᴇ : {os_uptime}\n"
+        f"⚡️ Cᴘᴜ ᴜsᴀɢᴇ  : {cpu_usage}%\n"
+        f"🧨 Rᴀᴍ ᴜsᴀɢᴇ  : {memory.percent}%\n"
+        f"💿 Dɪsᴋ ᴜsᴀɢᴇ : {disk}%\n"
+        f"🪫 Fʀᴇᴇ sᴘᴀᴄᴇ : {get_readable_file_size(free)}\n"
+        f"💯 Tᴏᴛᴀʟ sᴘᴀᴄᴇ: {get_readable_file_size(total)}\n\n"
     )
 
     limitations = "<b>LIMITATIONS</b>\n\n"
 
     for k, v in limit_mapping.items():
-        if v == '':
-            v = '∞'
-        elif k != '👤 Usᴇʀ ᴛᴀsᴋ':
-            v = f'{v}GB/Link'
+        if v == "":
+            v = "∞"
+        elif k != "👤 Usᴇʀ ᴛᴀsᴋ":
+            v = f"{v}GB/Link"
+        elif v == 1:
+            v = f"{v} Task/user"
         else:
-            if v == 1:
-                v = f'{v} Task/user'
-            else:
-                v = f'{v} Tasks/user'
-        limitations += f' {k:<11}: {v}\n'
+            v = f"{v} Tasks/user"
+        limitations += f" {k:<11}: {v}\n"
 
     stats = system_info + limitations
     reply_message = await send_message(message, stats, photo="Random")
@@ -154,7 +154,9 @@ async def stats(_, message):
 
 @new_thread
 async def start(client, message):
-    sticker_message = await message.reply_sticker("CAACAgIAAxkBAAEarGtmq8a_Hy6_Pk8IzUHRO8i1dvwDyAACFh4AAuzxOUkNYHq7o3u0ODUE")
+    sticker_message = await message.reply_sticker(
+        "CAACAgIAAxkBAAEarGtmq8a_Hy6_Pk8IzUHRO8i1dvwDyAACFh4AAuzxOUkNYHq7o3u0ODUE"
+    )
     await asyncio.sleep(2)
     await sticker_message.delete()
     if len(message.command) > 1 and message.command[1] == "private":
@@ -204,7 +206,9 @@ async def start(client, message):
 
 
 async def restart(_, message):
-    sticker_message = await message.reply_sticker("CAACAgUAAxkBAAEXrSRlbwYlArKGw0lVGUGHquKMqbu3fQACLggAAmCIwVXm28BgWp1jmzME")
+    sticker_message = await message.reply_sticker(
+        "CAACAgUAAxkBAAEXrSRlbwYlArKGw0lVGUGHquKMqbu3fQACLggAAmCIwVXm28BgWp1jmzME"
+    )
     await asyncio.sleep(2)
     await sticker_message.delete()
     restart_message = await send_message(message, "Restarting...")

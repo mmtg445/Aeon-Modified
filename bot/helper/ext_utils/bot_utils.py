@@ -1,7 +1,6 @@
 import contextlib
 from os import path as ospath
 from re import match as re_match
-from html import escape
 from time import time
 from uuid import uuid4
 from asyncio import (
@@ -232,10 +231,7 @@ async def fetch_user_tds(user_id, force=False):
 def progress_bar(pct):
     if isinstance(pct, str):
         pct = float(pct.strip("%"))
-    p = min(
-        max(pct, 0),
-        100
-    )
+    p = min(max(pct, 0), 100)
     cFull = int(p // 10)
     p_str = "★" * cFull
     p_str += "✩" * (10 - cFull)
@@ -268,16 +264,20 @@ def get_readable_message():
     ]:
         # msg += f"<b>{download.status()}:</b> {escape(f'{download.name()}')}\n"
         # msg += f"by {source(download)}\n"
-        if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING, MirrorStatus.STATUS_PROCESSING]:
+        if download.status() not in [
+            MirrorStatus.STATUS_SPLITTING,
+            MirrorStatus.STATUS_SEEDING,
+            MirrorStatus.STATUS_PROCESSING,
+        ]:
             msg += f"\n<blockquote>#FileName: {download.name()}</blockquote>\n"
             msg += f"<b>{download.status()}:</b>"
             # msg += f"<b>\n⌑ ғɪʟᴇɴᴀᴍᴇ</b> » <i>{escape(f'{download.name()}')}</i>\n"
             msg += f"\n<blockquote>🚀 ᴘʀᴏᴄᴇssᴇᴅ: {progress_bar(download.progress())} » {download.progress()}"
             msg += f"\n💯 ᴅᴏɴᴇ: {download.processed_bytes()} of {download.size()}"
             msg += f"\n🚀 sᴘᴇᴇᴅ: {download.speed()}"
-            msg += f'\n⏳ ᴇsᴛɪᴍᴀᴛᴇᴅ: {download.eta()}'
+            msg += f"\n⏳ ᴇsᴛɪᴍᴀᴛᴇᴅ: {download.eta()}"
             msg += f"\n👤 ᴜsᴇʀ: {download.message.from_user.mention} \n🔗 ᴜsᴇʀ ɪᴅ: <spoiler>{download.message.from_user.id}</spoiler>"
-            if hasattr(download, 'seeders_num'):
+            if hasattr(download, "seeders_num"):
                 with contextlib.suppress(Exception):
                     msg += f"\n🌱 sᴇᴇᴅᴇʀs: {download.seeders_num()} | 📥 ʟᴇᴇᴄʜᴇʀs: {download.leechers_num()}"
         elif download.status() == MirrorStatus.STATUS_SEEDING:
@@ -289,7 +289,9 @@ def get_readable_message():
         else:
             msg += f"\n💽 sɪᴢᴇ: {download.size()}"
         msg += f"\n💯 ᴇʟᴀᴘsᴇᴅ: {get_readable_time(time() - download.message.date.timestamp())}</blockquote>"
-        msg += f"\n<blockquote><b> ❌⚠️: /stop_{download.gid()[:8]}</b></blockquote>\n\n"
+        msg += (
+            f"\n<blockquote><b> ❌⚠️: /stop_{download.gid()[:8]}</b></blockquote>\n\n"
+        )
     if len(msg) == 0:
         return None, None
     if tasks > STATUS_LIMIT:
@@ -413,7 +415,7 @@ def arg_parser(items, arg_base):
         if part in arg_base:
             if arg_start == -1:
                 arg_start = i
-            if i + 1 == t and part in bool_arg_set or part in ["-s", "-j"]:
+            if (i + 1 == t and part in bool_arg_set) or part in ["-s", "-j"]:
                 arg_base[part] = True
             else:
                 sub_list = []
@@ -528,8 +530,8 @@ async def checking_access(user_id, button=None):
     if DATABASE_URL:
         data["time"] = await DbManager().get_token_expiry(user_id)
     expire = data.get("time")
-    is_expired = (
-        expire is None or expire is not None and (time() - expire) > token_timeout
+    is_expired = expire is None or (
+        expire is not None and (time() - expire) > token_timeout
     )
     if is_expired:
         token = data["token"] if expire is None and "token" in data else str(uuid4())

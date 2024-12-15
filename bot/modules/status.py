@@ -1,3 +1,4 @@
+import asyncio
 from time import time
 
 from psutil import disk_usage
@@ -28,11 +29,13 @@ from bot.helper.telegram_helper.message_utils import (
     sendStatusMessage,
     update_all_messages,
 )
-import asyncio
+
 
 @new_task
 async def mirror_status(_, message):
-    sticker_message = await message.reply_sticker("CAACAgIAAxkBAAEXzJtlezBU92o9SmsFleHxnuyQWpkHnQACogEAAjDUnRH1ZwABIuJAFVczBA")
+    sticker_message = await message.reply_sticker(
+        "CAACAgIAAxkBAAEXzJtlezBU92o9SmsFleHxnuyQWpkHnQACogEAAjDUnRH1ZwABIuJAFVczBA"
+    )
     await asyncio.sleep(2)
     await sticker_message.delete()
     async with download_dict_lock:
@@ -41,12 +44,12 @@ async def mirror_status(_, message):
     if count == 0:
         current_time = get_readable_time(time() - bot_start_time)
         free = get_readable_file_size(disk_usage("/usr/src/app/downloads/").free)
-        msg = f"<b><a href='https://t.me/JetMirror'>Pᴏᴡᴇʀᴇᴅ ʙʏ ᴊᴇᴛ-ᴍɪʀʀᴏʀ 🚀♥️</a></b>\n\n"
+        msg = "<b><a href='https://t.me/JetMirror'>Pᴏᴡᴇʀᴇᴅ ʙʏ ᴊᴇᴛ-ᴍɪʀʀᴏʀ 🚀♥️</a></b>\n\n"
         msg += "No downloads are currently in progress.\n"
         msg += f"\n<b>• Bot uptime</b>: {current_time}"
         msg += f"\n<b>• Free disk space</b>: {free}"
 
-        reply_message = await send_message(message, msg, photo='Random')
+        reply_message = await send_message(message, msg, photo="Random")
         await delete_message(message)
         await one_minute_del(reply_message)
     else:
