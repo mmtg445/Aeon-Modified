@@ -247,7 +247,7 @@ def source(self):
 
 
 def get_readable_message():
-    msg = '<b><a href="https://t.me/JetMirror">ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴊᴇᴛ-ᴍɪʀʀᴏʀ ❤️🚀</a></b>\n'
+    msg = '<b><a href="https://t.me/RM_Movies_Update">Pᴏᴡᴇʀᴇᴅ ʙʏ -𝚁𝙼 𝙼𝚘𝚟𝚒𝚎 𝙵𝚕𝚒𝚡 🚀♥️</a></b>\n'
     button = None
     tasks = len(download_dict)
     current_time = get_readable_time(time() - bot_start_time)
